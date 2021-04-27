@@ -6,7 +6,7 @@
 name: ${name}
 main: ${main}
 version: ${version}
-authors: ['坏黑']
+authors: ['CziSKY']
 
 api-version: 1.13
 
