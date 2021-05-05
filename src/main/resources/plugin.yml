@@ -8,6 +8,9 @@ main: ${main}
 version: ${version}
 authors: ['CziSKY']
 
+depend:
+  - Adyeshach
+
 api-version: 1.13
 
 lib-download: true

@@ -18,8 +18,8 @@ import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 
 
-@BaseCommand(name = "AdyStandEditor", aliases = ["ase"], permission = "*")
-class AdyStandEditorCmd : BaseMainCommand() {
+@BaseCommand(name = "AdyStandCopier", aliases = ["asc"], permission = "*")
+class AdyStandCopierCmd : BaseMainCommand() {
 
     @SubCommand(description = "将玩家视角内的实体盔甲架数据赋予给生物类型为盔甲架的 Adyeshach NPC.")
     val pasteData: BaseSubCommand = object : BaseSubCommand() {
@@ -27,8 +27,8 @@ class AdyStandEditorCmd : BaseMainCommand() {
             if (args.isEmpty() || sender is ConsoleCommandSender) {
                 return sender.sendMessage(
                     when (sender is ConsoleCommandSender) {
-                        true -> setColored("&c[AdyStandEditor] &7执行者必须为玩家.")
-                        else -> setColored("&c[AdyStandEditor] &7错误的指令使用方法.")
+                        true -> setColored("&c[AdyStandCopier] &7执行者必须为玩家.")
+                        else -> setColored("&c[AdyStandCopier] &7错误的指令使用方法.")
                     }
                 )
             }
@@ -36,17 +36,17 @@ class AdyStandEditorCmd : BaseMainCommand() {
             val player = sender as? Player ?: return
 
             if (AdyeshachAPI.getEntityFromId(args[0], player) == null) {
-                return sender.sendMessage(setColored("&c[AdyStandEditor] &7这个 NPC 不存在."))
+                return sender.sendMessage(setColored("&c[AdyStandCopier] &7这个 NPC 不存在."))
             }
 
             val adyArmorStand = AdyeshachAPI.getEntityFromId(args[0]) as? AdyArmorStand
-                ?: return sender.sendMessage(setColored("&c[AdyStandEditor] &7这个 NPC 的类型必须为盔甲架."))
+                ?: return sender.sendMessage(setColored("&c[AdyStandCopier] &7这个 NPC 的类型必须为盔甲架."))
 
             val targetedArmorStand: ArmorStand? = (player.getNearbyEntities(3.0, 3.0, 3.0)
                 .asSequence()
                 .filter { entity -> entity.type == EntityType.ARMOR_STAND }
                 .iterator().next()
-                ?: return sender.sendMessage(setColored("&c[AdyStandEditor] &7您的周围没有任何盔甲架实体."))) as? ArmorStand
+                ?: return sender.sendMessage(setColored("&c[AdyStandCopier] &7您的周围没有任何盔甲架实体."))) as? ArmorStand
 
             adyArmorStand.setCustomNameVisible(targetedArmorStand!!.isCustomNameVisible)
             targetedArmorStand.customName?.let { adyArmorStand.setCustomName(it) }
@@ -110,12 +110,12 @@ class AdyStandEditorCmd : BaseMainCommand() {
             val yawAndPitch = listOf(location.yaw, location.pitch)
 
             targetedArmorStand.remove()
-            sender.sendMessage(setColored("&c[AdyStandEditor] &7已自动移除原盔甲架."))
+            sender.sendMessage(setColored("&c[AdyStandCopier] &7已自动移除原盔甲架."))
 
             adyArmorStand.teleport(location)
             adyArmorStand.setHeadRotation(yawAndPitch[0], yawAndPitch[1])
 
-            sender.sendMessage(setColored("&c[AdyStandEditor] &7操作完成."))
+            sender.sendMessage(setColored("&c[AdyStandCopier] &7操作完成."))
         }
     }
 

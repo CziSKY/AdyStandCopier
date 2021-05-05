@@ -1,5 +1,5 @@
-package ink.ptms.adyeshach.addon.adystandeditor
+package ink.ptms.adyeshach.addon.adystandcopier
 
 import io.izzel.taboolib.loader.Plugin
 
-object AdyStandEditor : Plugin()
+object AdyStandCopier : Plugin()
